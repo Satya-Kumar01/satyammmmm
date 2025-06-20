@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="ASCII" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi-Step Form</title>
+    <style>
+        body {
+            font-family: 'courier new', sans-serif;
+            background-color: orange;
+            margin: 0.5;
+            padding: 0;
+            display: flex;
+            height: 110vh;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            display: flex;
+            width: 900px;
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar {
+            background: maroon;
+            color: white;
+            width: 30%;
+            padding: 50px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            position: relative;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            color: white;
+        }
+        
+        .step .number {
+            width: 15pxpx;
+            height: 15pxpx;
+            background: transparent;
+            border: 1px solid white;
+            border-radius: 30%;
+            text-align: center;
+            line-height: 10pxapx;
+            margin-right: 10px;
+        }
+        
+        .step.active .number {
+            background: white;
+            color: maroon;
+            font-weight: bold;
+        }
+        
+        .form-section {
+            flex: 1;
+            padding: 40px;
+        }
+        
+        .form-section h2 {
+            color: darkslateblue;
+        }
+        
+        .form-section p {
+            color: cadetblue;
+            margin-bottom: 20px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        
+        button {
+            background-color: darkslateblue;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            float: right;
+        }
+        
+        button:hover {
+            background-color: lightblue;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="step active" id="step1-tab">
+                <div class="number">1</div>
+                <div>
+                    <small>STEP </small><br>
+                    <strong>YOUR INFO</strong>
+                </div>
+            </div>
+            <div class="step" id="step2-tab">
+                <div class="number">2</div>
+                <div>
+                    <small>STEP </small><br>
+                    <strong>SELECT PLAN</strong>
+                </div>
+            </div>
+            <div class="step" id="step3-tab">
+                <div class="number">3</div>
+                <div>
+                    <small>STEP </small><br>
+                    <strong>ADD-ONS</strong>
+                </div>
+            </div>
+            <div class="step" id="step4-tab">
+                <div class="number">4</div>
+                <div>
+                    <small>STEP </small><br>
+                    <strong>SUMMARY</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Sections -->
+        <div class="form-section">
+            <div id="step1" class="step-content">
+                <h2>Personal info</h2>
+                <p>Please provide your name, email address, and phone number.</p>
+                <input type="text" placeholder="e.g. Jhon Snow" />
+                <input type="email" placeholder="e.g. johnsnowg@lorem.com" />
+                <input type="tel" placeholder="e.g. +1 432 456 690" />
+                <button onclick="nextStep(2)">Next Step</button>
+            </div>
+
+            <div id="step2" class="step-content hidden">
+                <h2>Select Plan</h2>
+                <p>Choose your preferred plan.</p>
+                <input type="text" placeholder="Plan Name" />
+                <button onclick="prevStep(1)">Back</button>
+                <button onclick="nextStep(3)">Next Step</button>
+            </div>
+
+            <div id="step3" class="step-content hidden">
+                <h2>Add-ons</h2>
+                <p>Select additional services.</p>
+                <input type="checkbox" /> Extra Storage<br/>
+                <input type="checkbox" /> Custom Domain<br/>
+                <button onclick="prevStep(2)">Back</button>
+                <button onclick="nextStep(4)">Next Step</button>
+            </div>
+
+            <div id="step4" class="step-content hidden">
+                <h2>Summary</h2>
+                <p>Confirm your selections and submit.</p>
+                <button onclick="prevStep(3)">Back</button>
+                <button onclick="alert('Form Submitted Successfully!')">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function nextStep(step) {
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`step${i}`).classList.add('hidden');
+                document.getElementById(`step${i}-tab`).classList.remove('active');
+            }
+            document.getElementById(`step${step}`).classList.remove('hidden');
+            document.getElementById(`step${step}-tab`).classList.add('active');
+        }
+
+        function prevStep(step) {
+            nextStep(step);
+        }
+    </script>
+</body>
+
+</html>
